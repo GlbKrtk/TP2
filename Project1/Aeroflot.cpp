@@ -51,3 +51,15 @@ void Aeroflot::setAircraft_Type(string t1) {
 string Aeroflot::getAircraft_Type() {
 	return aircraft_Type;
 }
+
+ostream& operator<<(ostream &out, const Aeroflot &aeroflot) {
+	out << "Рейс, который следует в: " << aeroflot.Destination << ", номер рейса: " << aeroflot.flight_Number << ", тип самолёта: " << aeroflot.aircraft_Type << "\n";
+	return out;
+}
+
+istream& operator>>(istream &in, Aeroflot &aeroflot) {
+	in >> aeroflot.Destination;
+	in >> aeroflot.flight_Number;
+	in >> aeroflot.aircraft_Type;
+	return in;
+}

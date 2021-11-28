@@ -16,6 +16,8 @@ public:
 	Aeroflot();
 	Aeroflot(const Aeroflot&);
 	~Aeroflot();
+	friend ostream& operator<< (ostream &out, const Aeroflot &aeroflot);
+	friend istream& operator>> (istream &in, Aeroflot &Aeroflot);
 private:
 	string Destination;
 	int flight_Number;
