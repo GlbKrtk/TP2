@@ -1,11 +1,15 @@
 #include <iostream>
 #include "Aeroflot.h"
+#include <fstream>
 
 using namespace std;
 
 int main()
 {
+	ifstream fin;
+	fin.open("file.txt");
 	setlocale(LC_ALL, "rus");
+	string File;
 	int k = 0;
 	int k1 = -1, k2 = 0, k3 = 0;
 	int n1 = 0;
@@ -13,33 +17,8 @@ int main()
 	int c1 = 0;
 	string t1;
 	string d1, d2;
-	Aeroflot* A = nullptr; //= new Aeroflot[k] попробовать сделать динамически, не задавать изначально
+	Aeroflot* A = nullptr;
 	Aeroflot* sravn = new Aeroflot[k];
-	//for (int i = 0; i < k; i++)
-	//{
-	//	for (int j = 0; j < k-i; j++)
-	//	{
-	//		if (A[i].getFlight_Number() < A[i + 1].getFlight_Number())
-	//		{
-	//			sravn[i] = A[i];
-	//			A[i] = A[i + 1];
-	//			A[i + 1] = sravn[i];
-	//		}
-	//	}
-	//}
-	//cout << "Введите пункт назначения для поиска рейсов\n";
-	//cin >> d1;
-	//for (int i = 0; i < k; i++)
-	//{
-	//	if (d1 == A[i].getDestination())
-	//	{
-	//		cout << "Номер рейса: " << A[i].getFlight_Number() << ", Тип самолёта: " << A[i].getAircraft_Type() << endl;
-	//	}
-	//	else
-	//	{
-	//		cout << "Таких рейсов нет\n";
-	//	}
-	//}
 	cout << "1 - редактировать\n2 - удалить\n3 - добавить\n4 - вывод на экран номеров рейсов и типов самолетов, вылетающих в пункт назначения, название которого совпало с названием, введенным с клавиатуры\n5 - вывод\n0-выход из программы\n";
 	while (k1 != 0)
 	{
@@ -183,5 +162,23 @@ int main()
 			cout << s.what() << endl;
 		}
 	}
+	try {
+		if (!fin.is_open())
+		{
+			throw exception("Файл не открыт");
+		}
+		while (!fin.eof())
+		{
+			fin >> File;
+			if (File[0] == 'a' || File[0] == 'e' || File[0] == 'i' || File[0] == 'o' || File[0] == 'u' || File[0] == 'y')
+			{
+				cout << File << " ";
+			}
+		}
+	}
+	catch (exception s) {
+		cout << s.what() << endl;
+	}
+	fin.close();
 	return 0;
 }
