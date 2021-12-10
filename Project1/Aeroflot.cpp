@@ -1,6 +1,10 @@
 #include "Aeroflot.h"
 
 Aeroflot::Aeroflot(string d1, int n1, string t1) {
+	if (n1 < 0)
+	{
+		throw exception("Неверный номер рейса");
+	}
 	Destination = d1;
 	flight_Number = n1;
 	aircraft_Type = t1;
@@ -37,6 +41,10 @@ string Aeroflot::getDestination() {
 }
 
 void Aeroflot::setFlight_Number(int n1) {
+	if (n1 < 0)
+	{
+		throw exception("Неверный номер рейса");
+	}
 	flight_Number = n1;
 }
 
@@ -60,6 +68,11 @@ ostream& operator<<(ostream &out, const Aeroflot &aeroflot) {
 istream& operator>>(istream &in, Aeroflot &aeroflot) {
 	in >> aeroflot.Destination;
 	in >> aeroflot.flight_Number;
+	if (aeroflot.flight_Number < 0)
+	{
+		aeroflot.flight_Number = 0;
+		throw exception("Неверный номер рейса");
+	}
 	in >> aeroflot.aircraft_Type;
 	return in;
 }
