@@ -18,7 +18,7 @@ int main()
 	string t1;
 	string d1, d2;
 	Aeroflot* A = nullptr;
-	Aeroflot* sravn = new Aeroflot[k];
+	Aeroflot sravn;
 	cout << "1 - редактировать\n2 - удалить\n3 - добавить\n4 - вывод на экран номеров рейсов и типов самолетов, вылетающих в пункт назначени€, название которого совпало с названием, введенным с клавиатуры\n5 - вывод\n0-выход из программы\n";
 	while (k1 != 0)
 	{
@@ -34,12 +34,13 @@ int main()
 			case 1:
 				cout << "¬ыберите номер объекта, параметр которого вы хотите изменить\n";
 				cin >> k2;
-				if (k2 > c)
+				if (k2 > c || k2 <= 0)
 				{
-					cout << "Ёлементов меньше, чем введЄнное число\n";
+					cout << "Ёлементов меньше, чем введЄнное число или это число не верное\n";
 				}
 				else
 				{
+					k2--;
 					cout << " акой параметр вы хотите изменить? 1 - изменить пункт назначени€, 2 - изменить номер рейса, 3 - изменить тип самолЄта\n";
 					cin >> k3;
 					if (k3 == 1)
@@ -69,13 +70,13 @@ int main()
 			case 2:
 				cout << "¬ведите номер объекта, который хотите удалить\n";
 				cin >> k2;
-				k2--;
-				if (k2 >= c)
+				if (k2 > c || k2 <= 0)
 				{
-					cout << "Ёлементов меньше, чем введЄнное число\n";
+					cout << "Ёлементов меньше, чем введЄнное число или число неверное\n";
 				}
 				else
 				{
+					k2--;
 					c--;
 					A[k2] = A[c];
 					A[c].setAircraft_Type("");
@@ -113,7 +114,7 @@ int main()
 			case 4:
 				cout << "¬ведите пункт назначени€ дл€ поиска рейсов\n";
 				cin >> d1;
-				for (int i = 0; i < k; i++)
+				for (int i = 0; i < c; i++)
 				{
 					if (d1 == A[i].getDestination())
 					{
@@ -138,21 +139,21 @@ int main()
 				}
 				for (int i = 0; i < c; i++)
 				{
-					cout << A[i] << endl;
+					cout << A[i];
 				}
 				break;
 			default:
 				break;
 			}
-			for (int i = 0; i < k - 1; i++)
+			for (int i = 0; i < c - 1; i++)
 			{
-				for (int j = 0; j < k - i - 1; j++)
+				for (int j = 0; j < c - i - 1; j++)
 				{
-					if (A[i].getFlight_Number() < A[i + 1].getFlight_Number())
+					if (A[j].getFlight_Number() > A[j + 1].getFlight_Number())
 					{
-						sravn[i] = A[i];
-						A[i] = A[i + 1];
-						A[i + 1] = sravn[i];
+						sravn = A[j];
+						A[j] = A[j + 1];
+						A[j + 1] = sravn;
 					}
 				}
 			}
@@ -162,6 +163,7 @@ int main()
 			cout << s.what() << endl;
 		}
 	}
+	delete[]A;
 	try {
 		if (!fin.is_open())
 		{
@@ -175,6 +177,7 @@ int main()
 				cout << File << " ";
 			}
 		}
+		cout << endl;
 	}
 	catch (exception s) {
 		cout << s.what() << endl;
